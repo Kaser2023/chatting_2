@@ -1,0 +1,39 @@
+{
+  "rooms": {
+    "-Nabc123xyz": {
+      "name": "Mewo room",
+      "messages": {
+        "-Message1UniqueId": {
+          "message": "Hello, world!",
+          "name": "User1",
+          "timestamp": 1697049600000
+        },
+        "-Message2UniqueId": {
+          "message": "How are you?",
+          "name": "User2",
+          "timestamp": 1697049660000
+        }
+      }
+    },
+    "-Nabc456uvw": {
+      "name": "Another room",
+      "messages": {
+        "-Message3UniqueId": {
+          "message": "Welcome!",
+          "name": "User3",
+          "timestamp": 1697049720000
+        }
+      }
+    },
+    "-Kaser": {
+      "name": "Kaser Qurashi",
+      "messages": {
+        "-Message4UniqueId": {
+          "message": "Hi everyone!",
+          "name": "Kaser",
+          "timestamp": 1697049780000
+        }
+      }
+    }
+  }
+}
