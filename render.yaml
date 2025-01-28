@@ -1,6 +1,5 @@
 services:
-  - type: web
+  - type: static
     name: front-end
-    env: static
     buildCommand: npm run build
     staticPublishPath: ./dist
