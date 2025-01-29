@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Sidebar from "./Sidebar";
 import Chat from "./Chat";
@@ -6,17 +6,16 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import LOOG from "./LOOG";
 import { useStateValue } from "./StateProvider";
 
-
-
-
 function App() {
-  
-    const [ {user} , dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
 
   return (
     <div className="app">
       {!user ? (
-        <h1> <LOOG /> </h1>
+        <h1>
+          {" "}
+          <LOOG />{" "}
+        </h1>
       ) : (
         <div className="app_body">
           <Router>
@@ -43,12 +42,26 @@ function App() {
                 }
                 // element={<h1>Welcome Home Mewo</h1>}
               />
+
+              
+              {/* <Route path="*" element={<Navigate to="/" />} /> */}
+              
+              {/* Catch-all route for undefined paths */}
+              <Route
+                path="*"
+                element={
+                  <>
+                    <Chat />
+                  </>
+                }
+              />
+
+
+
             </Routes>
           </Router>
         </div>
       )}
-
-
     </div>
   );
 }
