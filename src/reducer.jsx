@@ -1,27 +1,27 @@
-// Initial state of the application
 export const initialState = {
     user: null,
-}
+  };
 
-// Action types for the reducer
-export const actionTypes = {
-    SET_USER: "SET_USER",
-}
+  export const actionTypes = {
+    SET_USER: 'SET_USER',
+    CLEAR_USER: 'CLEAR_USER',
+  };
 
-
-// Reducer function to handle state changes based on actions
-const reducer = (state, action) => {
-    console.log(action);
+  const reducer = (state, action) => {
     switch (action.type) {
-        case actionTypes.SET_USER:
-            return {
-                ...state,
-                user: action.user,
-            }
-        default:
-            return state;
+      case actionTypes.SET_USER:
+        return {
+          ...state,
+          user: action.user,
+        };
+      case actionTypes.CLEAR_USER:
+        return {
+          ...state,
+          user: null,
+        };
+      default:
+        return state;
     }
-};
+  };
 
-// Export the reducer as the default export
-export default reducer;
+  export default reducer;
