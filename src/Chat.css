@@ -1,7 +1,7 @@
 .chat{
     display: flex;
     flex-direction: column;
-    flex: 0.65;
+    flex: 0.70;
 }
 
 .chat_header{
@@ -101,4 +101,60 @@
 }
 
 
+/* ------- */
 
+.chat_p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+    background-color: #f9f9f9;
+        flex: 0.70;
+        background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png") ;
+
+    
+  }
+  
+  .chat_header_password {
+    /* width: 500px; */
+    width: 98%;
+    padding: 4px;
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .chat_headerInfo_password h3 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .chat_body_password {
+    outline-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+
+  .chat_body_password input {
+    margin-bottom: 10px;
+    outline-width: 0;
+  }
+  
+  .chat_bodyText_password {
+    font-size: 16px;
+    color: #333;
+  }
+
+.button_name{
+    width: 100%;
+    border: none;
+}

@@ -1,89 +1,83 @@
-import React, { useState, useEffect } from "react";
-import "./SidebarChat.css";
-import { Avatar } from "@mui/material";
-import database from "./firebase";
-import { collection, onSnapshot } from "firebase/firestore";
-// import { ref, onValue } from "firebase/database";
-import { push } from "firebase/database";
-import { Link } from "react-router-dom";
-import {  ref, query, orderByChild, onValue } from "firebase/database";
+import React, { useState } from 'react';
+    import './SidebarChat.css';
+    import { Avatar } from '@mui/material';
+    import { Link } from 'react-router-dom';
+    import database from './firebase';
+    import { ref, push, set } from 'firebase/database';
+    import { hashString } from './utils';
 
+    function SidebarChat({ id, name, addNewChat }) {
+      const [newRoomName, setNewRoomName] = useState('');
+      const [newRoomPassword, setNewRoomPassword] = useState('');
 
-function SidebarChat({ id, name, addNewChat }) {
-
-  const [messages, setMessages] = useState([]);
-
-  
-  useEffect(() => {
-    if (id) {
-      // Define the path to messages in the database
-      const messagesRef = ref(database, `rooms/${id}/messages`);
-
-      // Create a query to order by timestamp
-      const messagesQuery = query(messagesRef, orderByChild("timestamp"));
-
-      // Listen for changes in the messages
-      const unsubscribe = onValue(messagesQuery, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          // Convert data to an array and sort it in descending order
-          const sortedMessages = Object.entries(data)
-            .map(([key, value]) => ({
-              id: key,
-              ...value,
-            }))
-            .sort((a, b) => b.timestamp - a.timestamp);
-
-          setMessages(sortedMessages);
-        } else {
-          setMessages([]);
+      const createChat = () => {
+        if (newRoomName && newRoomPassword) {
+          const roomsRef = ref(database, 'rooms');
+          const newRoomRef = push(roomsRef);
+          const hashedPassword = hashString(newRoomPassword);
+          set(newRoomRef, {
+            name: newRoomName,
+            password: hashedPassword,
+          });
+          setNewRoomName('');
+          setNewRoomPassword('');
         }
-      });
+      };
 
-      // Cleanup listener when the component unmounts or `id` changes
-      return () => unsubscribe();
-    }
-  }, [id]);
+      return !addNewChat ? (
+        <Link to={`/rooms/${id}`}>
+          <div className="sidebarChat">
+            {/* <Avatar src="https://api.dicebear.com/9.x/bottts/svg" /> */}
+            <Avatar src="https://api.dicebear.com/9.x/bottts/svg" />
 
-  const createChat = () => {
-    const roomName = prompt("Please enter name for chat room");
+            <div className="sidebarChat_info">
+              <h2>{name}</h2>
 
-    if (roomName) {
-      // Reference to the "rooms" node in Realtime Database
-      const roomsRef = ref(database, "rooms");
-
-      // Add a new room with a dynamically generated key
-      push(roomsRef, {
-        name: roomName,
-      })
-        .then(() => {
-          console.log("Room added successfully!");
-        })
-        .catch((error) => {
-          console.error("Error adding room:", error);
-        });
-    }
-  };
-
-  return !addNewChat ? (
-    <Link to={`/rooms/${id}`}>
-      <div className="sidebarChat">
-        <Avatar src="https://api.dicebear.com/9.x/bottts/svg" />
-        {/* <Avatar src='https://api.dicebear.com/9.x/thumbs/svg?radius=50' /> */}
-
-        <div className="sidebarChat_info">
-          <h2> {name} </h2>
-          <p>
-            {messages[0]?.message}            
-          </p>
+              <p>Last message...</p>
+              {/* <p>
+                {messages[0]?.message}            
+              </p> */}
+            </div>
+          </div>
+        </Link>
+      ) : (
+        // <div className="sidebarChat">
+        //   <h2>Add New Chat</h2>
+        //   <input
+        //     type="text"
+        //     placeholder="Enter room name"
+        //     value={newRoomName}
+        //     onChange={(e) => setNewRoomName(e.target.value)}
+        //   />
+        //   <input
+        //     type="password"
+        //     placeholder="Enter room password"
+        //     value={newRoomPassword}
+        //     onChange={(e) => setNewRoomPassword(e.target.value)}
+        //   />
+        //   <button onClick={createChat}>Create</button>
+        // </div>
+        <div className="sidebarChat_K">
+          <h2 className="sidebarChat__title">Add New Chat</h2>
+          <input
+            className="sidebarChat__input"
+            type="text"
+            placeholder="Enter chat name"
+            value={newRoomName}
+            onChange={(e) => setNewRoomName(e.target.value)}
+          />
+          <input
+            className="sidebarChat__input"
+            type="password"
+            placeholder="Enter chat password"
+            value={newRoomPassword}
+            onChange={(e) => setNewRoomPassword(e.target.value)}
+          />
+          <button className="sidebarChat__button" onClick={createChat}>
+            Create
+          </button>
         </div>
-      </div>
-    </Link>
-  ) : (
-    <div onClick={createChat} className="sidebarChat">
-      <h2>Add new Chat</h2>
-    </div>
-  );
-}
+      );
+    }
 
-export default SidebarChat;
+    export default SidebarChat;
