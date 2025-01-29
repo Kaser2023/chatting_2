@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
     import Sidebar from './Sidebar';
     import Chat from './Chat';
     import LOOG from './LOOG';
-    import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+    import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
     import { useStateValue } from './StateProvider';
     import { auth } from './firebase';
     import { actionTypes } from './reducer';
@@ -40,7 +40,9 @@ import React, { useEffect } from 'react';
                 <Routes>
                   <Route path="/rooms/:roomId" element={<Chat />} />
                   <Route path="/" element={<Chat />} />
-                  <Route path="*" element={ <> <Chat /> </> } />
+                  {/* <Route path="*" element={ <> <Chat /> </> } /> */}
+                  <Route path="*" element={<Navigate to="/" replace />} />
+
                 </Routes>
               </Router>
             </div>
