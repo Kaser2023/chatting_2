@@ -42,6 +42,7 @@ import React, { useEffect } from 'react';
                   <Route path="/" element={<Chat />} />
                   {/* <Route path="*" element={ <> <Chat /> </> } /> */}
                   <Route path="*" element={<Navigate to="/" replace />} />
+                  
 
                 </Routes>
               </Router>
